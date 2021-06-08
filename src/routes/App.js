@@ -1,12 +1,19 @@
 import React from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
+import Header from '../components/Header';
 import Table from '../pages/Table';
 
 const App = () => {
-  <BrowserRouter>
-    <Route exact path='/' component={Table} />
-  </BrowserRouter>;
+  return (
+    <BrowserRouter>
+      <Header>
+        <Switch>
+          <Route exact path='/' component={Table} />
+        </Switch>
+      </Header>
+    </BrowserRouter>
+  );
 };
 
 export default App;

@@ -1,0 +1,11 @@
+.nav {
+  background-color: rgb(61, 44, 138);
+  font-size: 3rem;
+  padding: 2rem;
+}
+
+.nav__item {
+  margin-right: 2rem;
+  text-decoration: none;
+  color: white;
+}
