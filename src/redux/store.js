@@ -4,6 +4,8 @@ import thunk from 'redux-thunk';
 
 import userReducer from './users/userReducer';
 
+import { getUsers } from './users/userActions';
+
 const rootReducer = combineReducers({
   user: userReducer,
 });
@@ -15,6 +17,7 @@ const generateStore = () => {
     rootReducer,
     composeEnhancers(applyMiddleware(thunk))
   );
+  getUsers()(store.dispatch, store.getState);
   return store;
 };
 
