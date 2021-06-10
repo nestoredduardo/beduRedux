@@ -1,25 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 const Table = ({ users, fetching, error }) => {
-  const insertRows = () => {
-    console.log(users);
-    {
-      users ? (
-        users.map((user) => {
-          return (
-            <tr>
-              <td>{user.name}</td>
-              <td>{user.email}</td>
-              <td>{user.website}</td>
-            </tr>
-          );
-        })
-      ) : (
-        <></>
-      );
-    }
-  };
   return (
     <table>
       <thead>
@@ -27,9 +10,26 @@ const Table = ({ users, fetching, error }) => {
           <th>Nombre</th>
           <th>Correo</th>
           <th>Enlace</th>
+          <th>Id</th>
         </tr>
       </thead>
-      <tbody>{insertRows()}</tbody>
+
+      {fetching ? (
+        <h2>Loading..</h2>
+      ) : (
+        <tbody>
+          {users.map((user) => (
+            <tr key={user.id}>
+              <td>{user.name}</td>
+              <td>{user.email}</td>
+              <td>{user.website}</td>
+              <Link to={`/publications/${user.id}`}>
+                <div className='eye-solid icon' />
+              </Link>
+            </tr>
+          ))}
+        </tbody>
+      )}
     </table>
   );
 };

@@ -5,10 +5,11 @@ const getUsers = () => async (dispatch, getState) => {
     type: GET_USERS,
   });
   try {
-    const response = await fetch('https://jsonplaceholder.typicode.com/users');
+    let response = await fetch('https://jsonplaceholder.typicode.com/users');
+    response = await response.json();
     dispatch({
       type: GET_USERS_SUCCESS,
-      payload: response.data,
+      payload: response,
     });
   } catch (error) {
     dispatch({

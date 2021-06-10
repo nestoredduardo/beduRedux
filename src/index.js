@@ -6,6 +6,8 @@ import { Provider } from 'react-redux';
 import App from './routes/App';
 import generateStore from './redux/store';
 
+import './assets/styles/Icons.css';
+
 const store = generateStore();
 
 ReactDOM.render(

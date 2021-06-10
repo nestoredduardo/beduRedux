@@ -10,7 +10,7 @@ const rootReducer = combineReducers({
   user: userReducer,
 });
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE || compose;
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const generateStore = () => {
   const store = createStore(
