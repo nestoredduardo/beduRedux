@@ -2,29 +2,41 @@ import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { getPublications } from '../redux/publications/publicationActions';
+import { getUserPublication } from '../redux/publications/publicationActions';
 
 const Publications = (props) => {
-  const { getPublications } = props;
+  const { getUserPublication, publication } = props;
   const { key } = useParams();
 
   useEffect(() => {
-    getPublications();
+    getUserPublication(key);
   }, []);
 
   console.log(props);
-  return <div>{key}</div>;
+
+  return (
+    <div>
+      <h1>{`Publicaciones del usuario ${key}`}</h1>
+      {publication ? (
+        publication.userPublications.map((item) => {
+          return <p>{item.title}</p>;
+        })
+      ) : (
+        <p>Nothing</p>
+      )}
+    </div>
+  );
 };
 
 const mapStateToProps = ({ user, publication }) => {
   return {
     users: user.users,
-    publication: publication.publications,
+    publication,
   };
 };
 
 const mapDispatchtoProps = {
-  getPublications,
+  getUserPublication,
 };
 
 export default connect(mapStateToProps, mapDispatchtoProps)(Publications);

@@ -9,7 +9,7 @@ const initialState = {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_USERS_SUCCESS:
-      return { ...state, fetching: false, users: action.payload };
+      return { ...state, fetching: false, users: action.payload, error: false };
     case GET_USERS_ERROR:
       return { ...state, error: action.payload, fetching: false };
     case GET_USERS:
