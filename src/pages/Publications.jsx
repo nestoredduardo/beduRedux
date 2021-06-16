@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -12,18 +13,26 @@ const Publications = (props) => {
     getUserPublication(key);
   }, []);
 
-  console.log(props);
+  const userPublications = () => {
+    if (publication.loading) {
+      return <p>Loading...</p>;
+    }
+    if (publication.userPublications) {
+      return publication.userPublications.map((item) => {
+        return (
+          <div key={item.id}>
+            <h2>{item.title}</h2>
+            <p>{item.body}</p>
+          </div>
+        );
+      });
+    }
+  };
 
   return (
     <div>
-      <h1>{`Publicaciones del usuario ${key}`}</h1>
-      {publication ? (
-        publication.userPublications.map((item) => {
-          return <p>{item.title}</p>;
-        })
-      ) : (
-        <p>Nothing</p>
-      )}
+      <h1>Publicaciones del usuario</h1>
+      {userPublications()}
     </div>
   );
 };
