@@ -3,6 +3,12 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 const Table = ({ users, fetching, error }) => {
+  if (fetching) {
+    return <h2>Loading..</h2>;
+  }
+  if (error) {
+    return <h2>Ocurrió un error</h2>;
+  }
   return (
     <table>
       <thead>
@@ -14,22 +20,20 @@ const Table = ({ users, fetching, error }) => {
         </tr>
       </thead>
 
-      {fetching ? (
-        <h2>Loading..</h2>
-      ) : (
-        <tbody>
-          {users.map((user) => (
-            <tr key={user.id}>
-              <td>{user.name}</td>
-              <td>{user.email}</td>
-              <td>{user.website}</td>
+      <tbody>
+        {users.map((user) => (
+          <tr key={user.id}>
+            <td>{user.name}</td>
+            <td>{user.email}</td>
+            <td>{user.website}</td>
+            <td>
               <Link to={`/publications/${user.id}`}>
                 <div className='eye-solid icon' />
               </Link>
-            </tr>
-          ))}
-        </tbody>
-      )}
+            </td>
+          </tr>
+        ))}
+      </tbody>
     </table>
   );
 };

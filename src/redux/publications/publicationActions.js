@@ -5,7 +5,23 @@ import {
   GET_PUBLICATIONS_ERROR,
   GET_USER_PUBLICATION_SUCCESS,
   GET_USER_PUBLICATION_ERROR,
+  OPEN_CLOSE_USER_PUBLICATION,
 } from './publicationTypes';
+
+const openClosePublications = (key, commentId) => (dispatch, getState) => {
+  const { userPublications } = getState().publication;
+  const newUserPublications = userPublications.map((item) => {
+    if (item.id - 1 === commentId) {
+      return { ...item, open: true };
+    }
+    return { ...item, open: false };
+  });
+  console.log(newUserPublications);
+  dispatch({
+    type: OPEN_CLOSE_USER_PUBLICATION,
+    payload: newUserPublications,
+  });
+};
 
 const getPublications = () => async (dispatch) => {
   dispatch({
@@ -47,4 +63,4 @@ const getUserPublication = (key) => async (dispatch) => {
   }
 };
 
-export { getPublications, getUserPublication };
+export { getPublications, getUserPublication, openClosePublications };
