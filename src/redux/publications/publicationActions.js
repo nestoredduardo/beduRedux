@@ -20,7 +20,7 @@ const openClosePublications = (key, commentId) => (dispatch, getState) => {
   dispatch({
     type: OPEN_CLOSE_USER_PUBLICATION,
     payload: newUserPublications,
-  });
+  })
 };
 
 const getPublications = () => async (dispatch) => {
