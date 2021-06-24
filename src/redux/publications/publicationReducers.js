@@ -5,6 +5,9 @@ import {
   GET_USER_PUBLICATION_SUCCESS,
   GET_USER_PUBLICATION_ERROR,
   OPEN_CLOSE_USER_PUBLICATION,
+  GET_POST_COMMENTS,
+  GET_POST_COMMENTS_SUCCESS,
+  GET_POST_COMMENTS_ERROR,
 } from './publicationTypes';
 
 const initialState = {
@@ -16,6 +19,10 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case GET_POST_COMMENTS:
+      return { ...state };
+    case GET_POST_COMMENTS_SUCCESS:
+      return { ...state, postComments: action.payload };
     case OPEN_CLOSE_USER_PUBLICATION:
       return { ...state, userPublications: action.payload };
     case GET_USER_PUBLICATION_SUCCESS:

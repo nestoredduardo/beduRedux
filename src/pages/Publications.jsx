@@ -8,9 +8,14 @@ import {
   getUserPublication,
   openClosePublications,
 } from '../redux/publications/publicationActions';
+import Comments from '../components/Comments';
 
-const Publications = (props) => {
-  const { getUserPublication, publication } = props;
+const Publications = ({
+  getUserPublication,
+  publication,
+  openClosePublications,
+}) => {
+  const { userPublications } = publication;
   const { key } = useParams();
 
   useEffect(() => {
@@ -18,15 +23,15 @@ const Publications = (props) => {
   }, []);
 
   const handleClick = (key, commentId) => {
-    props.openClosePublications(key, commentId);
+    openClosePublications(key, commentId);
   };
 
-  const userPublications = () => {
+  const showUserPublications = () => {
     if (publication.loading) {
       return <p>Loading...</p>;
     }
-    if (publication.userPublications) {
-      return publication.userPublications.map((item, commentId) => {
+    if (userPublications) {
+      return userPublications.map((item, commentId) => {
         return (
           <div
             key={item.id}
@@ -36,6 +41,7 @@ const Publications = (props) => {
             id={item.id}>
             <h2>{item.title}</h2>
             <p>{item.body}</p>
+            {item.open && <Comments postId={item.id} />}
           </div>
         );
       });
@@ -45,7 +51,7 @@ const Publications = (props) => {
   return (
     <div>
       <h1>Publicaciones del usuario</h1>
-      {userPublications()}
+      {showUserPublications()}
     </div>
   );
 };
