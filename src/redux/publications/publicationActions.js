@@ -6,17 +6,40 @@ import {
   GET_USER_PUBLICATION_SUCCESS,
   GET_USER_PUBLICATION_ERROR,
   OPEN_CLOSE_USER_PUBLICATION,
+  GET_POST_COMMENTS,
+  GET_POST_COMMENTS_SUCCESS,
+  GET_POST_COMMENTS_ERROR,
 } from './publicationTypes';
+
+const getPostComments = (postId) => async (dispatch) => {
+  dispatch({
+    type: GET_POST_COMMENTS,
+  });
+  try {
+    const response = await fetch(
+      `https://jsonplaceholder.typicode.com/comments?postId=${postId}`
+    );
+    const data = await response.json();
+    dispatch({
+      type: GET_POST_COMMENTS_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: GET_POST_COMMENTS_ERROR,
+      payload: 'No se pudo traer los comentarios. Intente mas tarde',
+    });
+  }
+};
 
 const openClosePublications = (key, commentId) => (dispatch, getState) => {
   const { userPublications } = getState().publication;
-  const newUserPublications = userPublications.map((item) => {
-    if (item.id - 1 === commentId) {
+  const newUserPublications = userPublications.map((item, itemId) => {
+    if (itemId === commentId) {
       return { ...item, open: true };
     }
     return { ...item, open: false };
   });
-  console.log(newUserPublications);
   dispatch({
     type: OPEN_CLOSE_USER_PUBLICATION,
     payload: newUserPublications,
@@ -63,4 +86,9 @@ const getUserPublication = (key) => async (dispatch) => {
   }
 };
 
-export { getPublications, getUserPublication, openClosePublications };
+export {
+  getPublications,
+  getUserPublication,
+  openClosePublications,
+  getPostComments,
+};
